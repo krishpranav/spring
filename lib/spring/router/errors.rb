@@ -1,22 +1,33 @@
+# error codes
+
 module Spring
     module Base
-        class Err404 
-            def index
-                response.status = 404
-                render('404') || 'Error 404, Not Found'
-        end
 
-        def requested_method
-            :index
-        end
+       class Err404Ctrl
+          def index
+             response.status = 404
+             render('404') || 'Error 404, not found.'
+          end
+ 
+          def requested_method
+             :index
+          end
+ 
+          include Spring::Controller
+       end
 
-        include Spring::Controller
-
-        class Err500Ctrl
-            def index
-                response.status = 500
-                render('500') || 'Internal Error 500'
-            rescue 'Internal Error 500.'
-            end
+       class Err500Ctrl
+          def index
+             response.status = 500
+             render('500') || 'Internal Error 500.'
+          rescue
+             'Internal Error 500.'
+          end
+ 
+          def requested_method
+             :index
+          end
+          include Spring::Controller
+       end
     end
-end
+ end
